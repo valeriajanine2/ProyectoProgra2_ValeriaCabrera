@@ -22,6 +22,7 @@ import javax.swing.text.Element;
 import javax.swing.text.Highlighter;
 import javax.swing.JColorChooser;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
@@ -150,7 +151,7 @@ public class Main extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jToolBar1 = new javax.swing.JToolBar();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jt_main = new javax.swing.JTable();
         jLabel10 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -511,6 +512,11 @@ public class Main extends javax.swing.JFrame {
                 bt_salidaMouseExited(evt);
             }
         });
+        bt_salida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_salidaActionPerformed(evt);
+            }
+        });
 
         bt_eliminados.setBackground(new java.awt.Color(0, 189, 253));
         bt_eliminados.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
@@ -810,7 +816,7 @@ public class Main extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(226, 228, 420, -1));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jt_main.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -818,7 +824,7 @@ public class Main extends javax.swing.JFrame {
                 "From", "To", "Subject"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jt_main);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(226, 312, 422, 351));
         getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(545, 189, -1, -1));
@@ -1053,7 +1059,7 @@ public class Main extends javax.swing.JFrame {
         BdD db = new BdD("./CuentasProyecto.accdb");
         db.conectar();
         try {
-            db.query.execute("select Usuario,Password,Edad from Cuentas");
+            db.query.execute("select Nombre,Apellido,Usuario,Password,Edad from Cuentas");
             ResultSet rs = db.query.getResultSet();
             
             while (rs.next()) {
@@ -1064,6 +1070,7 @@ public class Main extends javax.swing.JFrame {
                     flag=false;
                     jd_login.setVisible(false);
                     client = new Cuenta(rs.getString(1),rs.getString(2),rs.getString("Usuario"),rs.getString("Password"),rs.getInt("Edad"));
+                    System.out.println(client);
                 }
             }
             if (flag) {
@@ -1090,7 +1097,6 @@ public class Main extends javax.swing.JFrame {
         try {
             String nom, ap, usuario, pass;
             int edad;
-            String creacion;
             nom = tf_nombreR.getText();
             ap = tf_apellidoR.getText();
             usuario = tf_userR.getText()+"@minigmail.edu";
@@ -1223,6 +1229,32 @@ public class Main extends javax.swing.JFrame {
     private void bt_sendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_sendActionPerformed
         //enviar un correo
         
+        Documento d = new Documento(tp_texto,doc,estilo);
+        Correo email = new Correo(client,tf_asunto.getText(),d);
+        salida.add(email);
+        String [] temp = tf_para.getText().split(",");
+        for (int i = 0; i < temp.length; i++) {
+            email.getReceptores().add(temp[i]);
+        }
+        
+        //agregar a la base de datos el path del archivo binarios
+        BdD db = new BdD("./CuentasProyecto.accdb");
+        db.conectar();
+        try {
+            //agregar path a base de datos
+            db.query.execute("update Cuentas set Salida='./"+client.getNombre()+"_"+client.getApellido()+".sal"+"' where Usuario='"+client.getUser()+"'");
+            db.commit();
+            //agregar correo a binario
+            BinarioCorreo bc = new BinarioCorreo("./"+client.getNombre()+"_"+client.getApellido()+".sal");
+            bc.cargarArchivo();
+            bc.setCorreo(email);
+            bc.escribirArchivo();
+            
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        db.desconectar();
         
         
     }//GEN-LAST:event_bt_sendActionPerformed
@@ -1274,6 +1306,21 @@ public class Main extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_bt_editAccActionPerformed
+
+    private void bt_salidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_salidaActionPerformed
+        //boton para mostrar bandeja de salida
+        
+        DefaultTableModel mod = (DefaultTableModel) jt_main.getModel();
+        BinarioCorreo bt = new BinarioCorreo("./"+client.getNombre()+"_"+client.getApellido()+".sal");
+        bt.cargarArchivo();
+        for (int i = 0; i < bt.getListaCorreos().size(); i++) {
+            Correo t = bt.getListaCorreos().get(i);
+            Object[]newrow = {t.getEmisor().getUser(),t.getReceptores(),t.getAsunto(),};
+            mod.addRow(newrow);
+        }
+        jt_main.setModel(mod);
+        
+    }//GEN-LAST:event_bt_salidaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1379,13 +1426,13 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JTable jTable1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JToolBar jToolBar2;
     private javax.swing.JDialog jd_editAcc;
     private javax.swing.JDialog jd_login;
     private javax.swing.JDialog jd_redactar;
     private javax.swing.JDialog jd_registro;
+    private javax.swing.JTable jt_main;
     private javax.swing.JMenuItem mi_deleteAcc;
     private javax.swing.JMenuItem mi_editAcc;
     private javax.swing.JMenuItem mi_logout;

@@ -5,16 +5,19 @@
  */
 package proyectoprogra2_12011273;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author Usuario
  */
-public class Correo {
+public class Correo implements Serializable{
+    
+    private static final long SerialVersionUID=777L; //version
     
     private Cuenta emisor;
-    private ArrayList<Cuenta> receptores = new ArrayList();
+    private ArrayList<String> receptores = new ArrayList();
     private String asunto;
     private Documento mensaje;
 
@@ -35,11 +38,11 @@ public class Correo {
         this.emisor = emisor;
     }
 
-    public ArrayList<Cuenta> getReceptores() {
+    public ArrayList<String> getReceptores() {
         return receptores;
     }
 
-    public void setReceptores(ArrayList<Cuenta> receptores) {
+    public void setReceptores(ArrayList<String> receptores) {
         this.receptores = receptores;
     }
 

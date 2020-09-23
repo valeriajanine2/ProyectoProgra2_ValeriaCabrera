@@ -5,13 +5,16 @@
  */
 package proyectoprogra2_12011273;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author Usuario
  */
-public class Cuenta {
+public class Cuenta implements Serializable{
+    
+    private static final long SerialVersionUID=777L; //version
     
     private String nombre;
     private String apellido;
