@@ -47,7 +47,7 @@ public class Documento implements Serializable{
 
     @Override
     public String toString() {
-        return "Documento{" + "panel=" + panel + ", doc=" + doc + ", estilo=" + estilo + '}';
+        return panel.getText();
     }
     
     

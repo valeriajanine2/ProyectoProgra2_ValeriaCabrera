@@ -791,7 +791,7 @@ public class Main extends javax.swing.JFrame {
                 bt_settingsMouseExited(evt);
             }
         });
-        getContentPane().add(bt_settings, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 30, 120, -1));
+        getContentPane().add(bt_settings, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 10, 120, -1));
 
         jPanel1.setBackground(new java.awt.Color(0, 153, 255));
 
@@ -803,8 +803,8 @@ public class Main extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 558, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -814,30 +814,35 @@ public class Main extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(226, 228, 420, -1));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(226, 228, 570, -1));
 
         jt_main.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "From", "To", "Subject"
+                "From", "To", "Subject", "Descripcion"
             }
         ));
+        jt_main.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jt_mainMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jt_main);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(226, 312, 422, 351));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 300, 570, 351));
         getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(545, 189, -1, -1));
 
         jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectoprogra2_12011273/minigmail.png"))); // NOI18N
-        getContentPane().add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 40, -1, -1));
+        getContentPane().add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 50, -1, -1));
 
         jScrollPane4.setViewportView(tp_main);
 
-        getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 310, 390, 350));
+        getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 300, 390, 350));
 
         jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectoprogra2_12011273/gradient-blue-linear-white-1920x1080-c2-f5f5f5-87cefa-a-255-f-14.png"))); // NOI18N
-        getContentPane().add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1100, 750));
+        getContentPane().add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1230, 750));
 
         jMenuBar1.setBackground(new java.awt.Color(102, 102, 102));
 
@@ -1315,12 +1320,19 @@ public class Main extends javax.swing.JFrame {
         bt.cargarArchivo();
         for (int i = 0; i < bt.getListaCorreos().size(); i++) {
             Correo t = bt.getListaCorreos().get(i);
-            Object[]newrow = {t.getEmisor().getUser(),t.getReceptores(),t.getAsunto(),};
+            Object[]newrow = {t.getEmisor().getUser(),t.getReceptores(),t.getAsunto(),t.getMensaje()};
             mod.addRow(newrow);
         }
         jt_main.setModel(mod);
         
     }//GEN-LAST:event_bt_salidaActionPerformed
+
+    private void jt_mainMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_mainMouseClicked
+        //pasar el correo de la tabla y enseñarlo en el pane
+        Documento d = (Documento)jt_main.getValueAt(jt_main.getSelectedRow(),3);
+        tp_main.setStyledDocument(d.getDoc());
+        
+    }//GEN-LAST:event_jt_mainMouseClicked
 
     /**
      * @param args the command line arguments
