@@ -5,11 +5,21 @@
  */
 package proyectoprogra2_12011273;
 
+import java.awt.GraphicsEnvironment;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 import javafx.scene.paint.Color;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.DefaultHighlighter;
+import javax.swing.text.Element;
+import javax.swing.text.Highlighter;
+import javax.swing.JColorChooser;
 import javax.swing.JOptionPane;
+import javax.swing.text.Style;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 
 /**
  *
@@ -22,7 +32,20 @@ public class Main extends javax.swing.JFrame {
      */
     public Main() {
         initComponents();
-        //this.setExtendedState(MAXIMIZED_BOTH);
+        //para style del formato
+        doc = tp_texto.getStyledDocument();
+        estilo = tp_texto.addStyle("miEstilo", null);
+        
+        //para el combobox de font
+        DefaultComboBoxModel modelo=(DefaultComboBoxModel) cb_font.getModel();
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        String fontNames[] = ge.getAvailableFontFamilyNames();
+        for (int i = 0; i < fontNames.length; i++) {
+            modelo.addElement(fontNames[i]);
+        }
+        cb_font.setModel(modelo);
+        
+        //abrir el login
         jd_login.setModal(true); //no poder tocar a principal
         jd_login.pack();//tamaño se acople a los controles preestablecidos
         jd_login.setLocationRelativeTo(this);//centro de la principal
@@ -47,7 +70,6 @@ public class Main extends javax.swing.JFrame {
         bt_login = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         pf_passli = new javax.swing.JPasswordField();
         jLabel16 = new javax.swing.JLabel();
@@ -66,6 +88,25 @@ public class Main extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         sp_edadR = new javax.swing.JSpinner();
         jLabel18 = new javax.swing.JLabel();
+        jd_redactar = new javax.swing.JDialog();
+        jLabel23 = new javax.swing.JLabel();
+        tf_para = new javax.swing.JTextField();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        tf_asunto = new javax.swing.JTextField();
+        jToolBar2 = new javax.swing.JToolBar();
+        cb_font = new javax.swing.JComboBox<>();
+        cb_fontsize = new javax.swing.JComboBox<>();
+        bt_bold = new javax.swing.JButton();
+        bt_italic = new javax.swing.JButton();
+        bt_underline = new javax.swing.JButton();
+        bt_highlight = new javax.swing.JButton();
+        bt_textcolor = new javax.swing.JButton();
+        bt_saveborrador = new javax.swing.JButton();
+        bt_send = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tp_texto = new javax.swing.JTextPane();
+        wallpaper = new javax.swing.JLabel();
         jDesktopPane1 = new javax.swing.JDesktopPane();
         bt_redactar = new javax.swing.JButton();
         bt_entrada = new javax.swing.JButton();
@@ -95,7 +136,12 @@ public class Main extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
 
+        jd_login.setName("Log In"); // NOI18N
+        jd_login.setUndecorated(true);
         jd_login.setResizable(false);
         jd_login.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jd_login.getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, -1, -1));
@@ -120,7 +166,7 @@ public class Main extends javax.swing.JFrame {
                 bt_loginActionPerformed(evt);
             }
         });
-        jd_login.getContentPane().add(bt_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 320, -1, -1));
+        jd_login.getContentPane().add(bt_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 320, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 153, 255));
@@ -136,23 +182,22 @@ public class Main extends javax.swing.JFrame {
                 jLabel8MouseExited(evt);
             }
         });
-        jd_login.getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 400, -1, -1));
+        jd_login.getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 380, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(153, 153, 153));
         jLabel7.setText("¿No tienes una cuenta aún?");
-        jd_login.getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 400, -1, -1));
-
-        jLabel20.setText("@minigmail.edu");
-        jd_login.getContentPane().add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 210, -1, -1));
+        jd_login.getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 380, -1, -1));
 
         jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectoprogra2_12011273/minigmail.png"))); // NOI18N
-        jd_login.getContentPane().add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, -1, -1));
+        jd_login.getContentPane().add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, -1, -1));
         jd_login.getContentPane().add(pf_passli, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 260, 220, -1));
 
         jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectoprogra2_12011273/gradient-blue-linear-white-1920x1080-c2-f5f5f5-87cefa-a-255-f-14.png"))); // NOI18N
         jd_login.getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 480, 540));
 
+        jd_registro.setName("Registro"); // NOI18N
+        jd_registro.setUndecorated(true);
         jd_registro.setResizable(false);
         jd_registro.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -214,6 +259,127 @@ public class Main extends javax.swing.JFrame {
         jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectoprogra2_12011273/gradient-blue-linear-white-1920x1080-c2-f5f5f5-87cefa-a-255-f-14.png"))); // NOI18N
         jd_registro.getContentPane().add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 560, 540));
 
+        jd_redactar.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel23.setFont(new java.awt.Font("Georgia", 1, 12)); // NOI18N
+        jLabel23.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel23.setText("Asunto:");
+        jLabel23.setName("Nuevo Correo"); // NOI18N
+        jd_redactar.getContentPane().add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, -1));
+        jd_redactar.getContentPane().add(tf_para, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 620, -1));
+
+        jLabel25.setFont(new java.awt.Font("Georgia", 1, 12)); // NOI18N
+        jLabel25.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel25.setText("Para:");
+        jLabel25.setName("Nuevo Correo"); // NOI18N
+        jd_redactar.getContentPane().add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, -1, -1));
+
+        jLabel22.setFont(new java.awt.Font("Georgia", 1, 36)); // NOI18N
+        jLabel22.setForeground(new java.awt.Color(0, 102, 255));
+        jLabel22.setText("Nuevo Correo");
+        jd_redactar.getContentPane().add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 10, -1, -1));
+        jd_redactar.getContentPane().add(tf_asunto, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, 620, -1));
+
+        jToolBar2.setBackground(new java.awt.Color(153, 153, 153));
+        jToolBar2.setRollover(true);
+
+        cb_font.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cb_fontItemStateChanged(evt);
+            }
+        });
+        jToolBar2.add(cb_font);
+
+        cb_fontsize.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "12", "18", "24", "36", "48", "60", "72" }));
+        cb_fontsize.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_fontsizeActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(cb_fontsize);
+
+        bt_bold.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectoprogra2_12011273/bold.png"))); // NOI18N
+        bt_bold.setFocusable(false);
+        bt_bold.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        bt_bold.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        bt_bold.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_boldActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(bt_bold);
+
+        bt_italic.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectoprogra2_12011273/italic.png"))); // NOI18N
+        bt_italic.setFocusable(false);
+        bt_italic.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        bt_italic.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        bt_italic.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_italicActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(bt_italic);
+
+        bt_underline.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectoprogra2_12011273/underline.png"))); // NOI18N
+        bt_underline.setFocusable(false);
+        bt_underline.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        bt_underline.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        bt_underline.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_underlineActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(bt_underline);
+
+        bt_highlight.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectoprogra2_12011273/highlight.png"))); // NOI18N
+        bt_highlight.setFocusable(false);
+        bt_highlight.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        bt_highlight.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        bt_highlight.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_highlightActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(bt_highlight);
+
+        bt_textcolor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectoprogra2_12011273/colortext.png"))); // NOI18N
+        bt_textcolor.setFocusable(false);
+        bt_textcolor.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        bt_textcolor.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        bt_textcolor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_textcolorActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(bt_textcolor);
+
+        jd_redactar.getContentPane().add(jToolBar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 180, 620, 50));
+
+        bt_saveborrador.setBackground(new java.awt.Color(0, 153, 204));
+        bt_saveborrador.setForeground(new java.awt.Color(255, 255, 255));
+        bt_saveborrador.setText("Guardar Borrador");
+        bt_saveborrador.setFocusable(false);
+        bt_saveborrador.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        bt_saveborrador.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jd_redactar.getContentPane().add(bt_saveborrador, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 460, -1, -1));
+
+        bt_send.setBackground(new java.awt.Color(0, 153, 204));
+        bt_send.setForeground(new java.awt.Color(255, 255, 255));
+        bt_send.setText("Enviar");
+        bt_send.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_sendActionPerformed(evt);
+            }
+        });
+        jd_redactar.getContentPane().add(bt_send, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 460, -1, -1));
+
+        jScrollPane3.setViewportView(tp_texto);
+
+        jd_redactar.getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(69, 250, 620, 190));
+
+        wallpaper.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectoprogra2_12011273/gradient-blue-linear-white-1920x1080-c2-f5f5f5-87cefa-a-255-f-14.png"))); // NOI18N
+        jd_redactar.getContentPane().add(wallpaper, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 510));
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -226,6 +392,11 @@ public class Main extends javax.swing.JFrame {
         bt_redactar.setForeground(new java.awt.Color(255, 255, 255));
         bt_redactar.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Downloads\\add.png")); // NOI18N
         bt_redactar.setText("Redactar");
+        bt_redactar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_redactarActionPerformed(evt);
+            }
+        });
 
         bt_entrada.setBackground(new java.awt.Color(0, 189, 253));
         bt_entrada.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
@@ -509,10 +680,10 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(bt_reuniones)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bt_drive)
-                .addContainerGap(174, Short.MAX_VALUE))
+                .addContainerGap(145, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jDesktopPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, -1, 729));
+        getContentPane().add(jDesktopPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 35, -1, 700));
 
         bt_settings.setBackground(new java.awt.Color(0, 189, 253));
         bt_settings.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
@@ -526,7 +697,7 @@ public class Main extends javax.swing.JFrame {
                 bt_settingsMouseExited(evt);
             }
         });
-        getContentPane().add(bt_settings, new org.netbeans.lib.awtextra.AbsoluteConstraints(968, 6, 120, -1));
+        getContentPane().add(bt_settings, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 30, 120, -1));
 
         jPanel1.setBackground(new java.awt.Color(0, 153, 255));
 
@@ -538,8 +709,8 @@ public class Main extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -575,6 +746,16 @@ public class Main extends javax.swing.JFrame {
 
         jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectoprogra2_12011273/gradient-blue-linear-white-1920x1080-c2-f5f5f5-87cefa-a-255-f-14.png"))); // NOI18N
         getContentPane().add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1100, 750));
+
+        jMenuBar1.setBackground(new java.awt.Color(102, 102, 102));
+
+        jMenu1.setText("File");
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Edit");
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -761,6 +942,7 @@ public class Main extends javax.swing.JFrame {
     
         //recorrer la base de datos para ver si existe la cuenta
         
+        boolean flag=true;
         BdD db = new BdD("./CuentasProyecto.accdb");
         db.conectar();
         try {
@@ -770,9 +952,14 @@ public class Main extends javax.swing.JFrame {
             while (rs.next()) {
                 if (tf_userli.getText().equals(rs.getString("Usuario")) && pf_passli.getText().equals(rs.getString("Password"))) {
                     JOptionPane.showMessageDialog(jd_login, "Log In Successful");
+                    tf_userli.setText("");
+                    pf_passli.setText("");
+                    flag=false;
+                    jd_login.setVisible(false);
                 }
-                System.out.println(rs.getString("Usuario") + "," + rs.getString("Password"));
-                
+            }
+            if (flag) {
+                JOptionPane.showMessageDialog(jd_login, "No existe su cuenta");
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -822,6 +1009,117 @@ public class Main extends javax.swing.JFrame {
         
     }//GEN-LAST:event_bt_registrarMouseClicked
 
+    private void cb_fontsizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_fontsizeActionPerformed
+        // TODO add your handling code here:
+        StyleConstants.setFontSize(estilo, Integer.parseInt(cb_fontsize.getSelectedItem().toString()));
+        doc.setCharacterAttributes(tp_texto.getSelectionStart(),
+                tp_texto.getSelectionEnd() - tp_texto.getSelectionStart(),
+                tp_texto.getStyle("miEstilo"),
+                true);
+    }//GEN-LAST:event_cb_fontsizeActionPerformed
+
+    private void bt_redactarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_redactarActionPerformed
+        //abrir dialog de redactar un correo nuevo
+        
+        jd_redactar.setModal(true); //no poder tocar a principal
+        jd_redactar.pack();//tamaño se acople a los controles preestablecidos
+        jd_redactar.setLocationRelativeTo(this);//centro de la principal
+        jd_redactar.setVisible(true);
+        
+        
+    }//GEN-LAST:event_bt_redactarActionPerformed
+
+    private void cb_fontItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_fontItemStateChanged
+        //set font
+        StyleConstants.setFontFamily(estilo, cb_font.getSelectedItem().toString());
+        //StyleConstants.setFontSize(estilo, Integer.parseInt(cb_font.getSelectedItem().toString()));
+        doc.setCharacterAttributes(tp_texto.getSelectionStart(),
+                tp_texto.getSelectionEnd() - tp_texto.getSelectionStart(),
+                tp_texto.getStyle("miEstilo"),
+                true);
+    }//GEN-LAST:event_cb_fontItemStateChanged
+
+    private void bt_boldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_boldActionPerformed
+        // TODO add your handling code here:
+        try {
+            StyleConstants.setBold(estilo, true);
+
+            doc.setCharacterAttributes(tp_texto.getSelectionStart(),
+                    tp_texto.getSelectionEnd() - tp_texto.getSelectionStart(),
+                    tp_texto.getStyle("miEstilo"),
+                    true);
+        } catch (Exception ex) {
+        }
+    }//GEN-LAST:event_bt_boldActionPerformed
+
+    private void bt_italicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_italicActionPerformed
+        // TODO add your handling code here:
+        try {
+            StyleConstants.setItalic(estilo, true);
+
+            doc.setCharacterAttributes(tp_texto.getSelectionStart(),
+                    tp_texto.getSelectionEnd() - tp_texto.getSelectionStart(),
+                    tp_texto.getStyle("miEstilo"),
+                    true);
+        } catch (Exception ex) {
+        }
+    }//GEN-LAST:event_bt_italicActionPerformed
+
+    private void bt_underlineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_underlineActionPerformed
+        
+        try {
+            StyleConstants.setUnderline(estilo, true);
+
+            doc.setCharacterAttributes(tp_texto.getSelectionStart(),
+                    tp_texto.getSelectionEnd() - tp_texto.getSelectionStart(),
+                    tp_texto.getStyle("miEstilo"),
+                    true);
+        } catch (Exception ex) {
+        }
+        
+    }//GEN-LAST:event_bt_underlineActionPerformed
+
+    private void bt_highlightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_highlightActionPerformed
+        // TODO add your handling code here:
+        try {
+
+            StyleConstants.setBackground(estilo,
+                    JColorChooser.showDialog(this,
+                            "Seleccione Color", java.awt.Color.yellow)
+            );
+
+            doc.setCharacterAttributes(tp_texto.getSelectionStart(),
+                    tp_texto.getSelectionEnd() - tp_texto.getSelectionStart(),
+                    tp_texto.getStyle("miEstilo"),
+                    true);
+        } catch (Exception ex) {
+        }
+        
+    }//GEN-LAST:event_bt_highlightActionPerformed
+
+    private void bt_textcolorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_textcolorActionPerformed
+        // TODO add your handling code here:
+        try {
+
+            StyleConstants.setForeground(estilo,
+                    JColorChooser.showDialog(this,
+                            "Seleccione Color", java.awt.Color.red)
+            );
+
+            doc.setCharacterAttributes(tp_texto.getSelectionStart(),
+                    tp_texto.getSelectionEnd() - tp_texto.getSelectionStart(),
+                    tp_texto.getStyle("miEstilo"),
+                    true);
+        } catch (Exception ex) {
+        }
+    }//GEN-LAST:event_bt_textcolorActionPerformed
+
+    private void bt_sendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_sendActionPerformed
+        //enviar un correo
+        
+        
+    }//GEN-LAST:event_bt_sendActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -858,21 +1156,30 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bt_bold;
     private javax.swing.JButton bt_borradores;
     private javax.swing.JButton bt_chats;
     private javax.swing.JButton bt_drive;
     private javax.swing.JButton bt_eliminados;
     private javax.swing.JButton bt_entrada;
     private javax.swing.JButton bt_favoritos;
+    private javax.swing.JButton bt_highlight;
+    private javax.swing.JButton bt_italic;
     private javax.swing.JButton bt_login;
     private javax.swing.JButton bt_redactar;
     private javax.swing.JButton bt_registrar;
     private javax.swing.JButton bt_reuniones;
     private javax.swing.JButton bt_salida;
+    private javax.swing.JButton bt_saveborrador;
+    private javax.swing.JButton bt_send;
     private javax.swing.JButton bt_settings;
     private javax.swing.JButton bt_spam;
     private javax.swing.JButton bt_tareas;
+    private javax.swing.JButton bt_textcolor;
     private javax.swing.JButton bt_todos;
+    private javax.swing.JButton bt_underline;
+    private javax.swing.JComboBox<String> cb_font;
+    private javax.swing.JComboBox<String> cb_fontsize;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -886,8 +1193,10 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -896,23 +1205,36 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelLogo;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JToolBar jToolBar2;
     private javax.swing.JDialog jd_login;
+    private javax.swing.JDialog jd_redactar;
     private javax.swing.JDialog jd_registro;
     private javax.swing.JPasswordField pf_passli;
     private javax.swing.JPasswordField pf_passwordR;
     private javax.swing.JSpinner sp_edadR;
     private javax.swing.JTextField tf_apellidoR;
+    private javax.swing.JTextField tf_asunto;
     private javax.swing.JTextField tf_nombreR;
+    private javax.swing.JTextField tf_para;
     private javax.swing.JTextField tf_userR;
     private javax.swing.JTextField tf_userli;
+    private javax.swing.JTextPane tp_texto;
+    private javax.swing.JLabel wallpaper;
     // End of variables declaration//GEN-END:variables
+    StyledDocument doc;
+    Style estilo;
+
 }
