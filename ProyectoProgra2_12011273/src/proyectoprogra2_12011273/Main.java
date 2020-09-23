@@ -5,6 +5,7 @@
  */
 package proyectoprogra2_12011273;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 import javafx.scene.paint.Color;
@@ -21,7 +22,7 @@ public class Main extends javax.swing.JFrame {
      */
     public Main() {
         initComponents();
-        this.setExtendedState(MAXIMIZED_BOTH);
+        //this.setExtendedState(MAXIMIZED_BOTH);
         jd_login.setModal(true); //no poder tocar a principal
         jd_login.pack();//tamaño se acople a los controles preestablecidos
         jd_login.setLocationRelativeTo(this);//centro de la principal
@@ -46,6 +47,7 @@ public class Main extends javax.swing.JFrame {
         bt_login = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         pf_passli = new javax.swing.JPasswordField();
         jLabel16 = new javax.swing.JLabel();
@@ -91,6 +93,8 @@ public class Main extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jLabel10 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
 
         jd_login.setResizable(false);
         jd_login.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -99,13 +103,13 @@ public class Main extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Georgia", 0, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(102, 102, 102));
         jLabel5.setText("Usuario:");
-        jd_login.getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 210, -1, -1));
+        jd_login.getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 210, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Georgia", 0, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(102, 102, 102));
         jLabel6.setText("Contraseña:");
-        jd_login.getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, -1, -1));
-        jd_login.getContentPane().add(tf_userli, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 210, 220, -1));
+        jd_login.getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, -1, -1));
+        jd_login.getContentPane().add(tf_userli, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, 220, -1));
 
         bt_login.setBackground(new java.awt.Color(51, 153, 255));
         bt_login.setFont(new java.awt.Font("Georgia", 0, 14)); // NOI18N
@@ -116,7 +120,7 @@ public class Main extends javax.swing.JFrame {
                 bt_loginActionPerformed(evt);
             }
         });
-        jd_login.getContentPane().add(bt_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 320, -1, -1));
+        jd_login.getContentPane().add(bt_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 320, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 153, 255));
@@ -132,19 +136,22 @@ public class Main extends javax.swing.JFrame {
                 jLabel8MouseExited(evt);
             }
         });
-        jd_login.getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 400, -1, -1));
+        jd_login.getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 400, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(153, 153, 153));
         jLabel7.setText("¿No tienes una cuenta aún?");
-        jd_login.getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 400, -1, -1));
+        jd_login.getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 400, -1, -1));
+
+        jLabel20.setText("@minigmail.edu");
+        jd_login.getContentPane().add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 210, -1, -1));
 
         jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectoprogra2_12011273/minigmail.png"))); // NOI18N
-        jd_login.getContentPane().add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, -1, -1));
-        jd_login.getContentPane().add(pf_passli, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 260, 220, -1));
+        jd_login.getContentPane().add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, -1, -1));
+        jd_login.getContentPane().add(pf_passli, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 260, 220, -1));
 
         jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectoprogra2_12011273/gradient-blue-linear-white-1920x1080-c2-f5f5f5-87cefa-a-255-f-14.png"))); // NOI18N
-        jd_login.getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 430, 540));
+        jd_login.getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 480, 540));
 
         jd_registro.setResizable(false);
         jd_registro.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -209,6 +216,7 @@ public class Main extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jDesktopPane1.setBackground(new java.awt.Color(153, 153, 153));
         jDesktopPane1.setPreferredSize(new java.awt.Dimension(179, 500));
@@ -504,6 +512,8 @@ public class Main extends javax.swing.JFrame {
                 .addContainerGap(174, Short.MAX_VALUE))
         );
 
+        getContentPane().add(jDesktopPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, -1, 729));
+
         bt_settings.setBackground(new java.awt.Color(0, 189, 253));
         bt_settings.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
         bt_settings.setForeground(new java.awt.Color(51, 51, 51));
@@ -516,6 +526,9 @@ public class Main extends javax.swing.JFrame {
                 bt_settingsMouseExited(evt);
             }
         });
+        getContentPane().add(bt_settings, new org.netbeans.lib.awtextra.AbsoluteConstraints(968, 6, 120, -1));
+
+        jPanel1.setBackground(new java.awt.Color(0, 153, 255));
 
         jToolBar1.setRollover(true);
 
@@ -525,7 +538,7 @@ public class Main extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -535,6 +548,8 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
                 .addContainerGap())
         );
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(226, 228, 420, -1));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -546,57 +561,20 @@ public class Main extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(226, 312, 422, 351));
+
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jScrollPane2.setViewportView(jTextArea1);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(bt_settings, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(360, 360, 360)
-                        .addComponent(jLabel10)
-                        .addContainerGap())))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(bt_settings)
-                        .addGap(32, 32, 32)
-                        .addComponent(jLabel10)
-                        .addGap(39, 39, 39)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE)
-                            .addComponent(jScrollPane2))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jDesktopPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 729, Short.MAX_VALUE))
-                .addContainerGap())
-        );
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(686, 312, 390, 351));
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(545, 189, -1, -1));
+
+        jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectoprogra2_12011273/minigmail.png"))); // NOI18N
+        getContentPane().add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 40, -1, -1));
+
+        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectoprogra2_12011273/gradient-blue-linear-white-1920x1080-c2-f5f5f5-87cefa-a-255-f-14.png"))); // NOI18N
+        getContentPane().add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1100, 750));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -781,8 +759,25 @@ public class Main extends javax.swing.JFrame {
 
     private void bt_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_loginActionPerformed
     
-        //recorrer la base de datos apra ver si existe la cuenta
+        //recorrer la base de datos para ver si existe la cuenta
         
+        BdD db = new BdD("./CuentasProyecto.accdb");
+        db.conectar();
+        try {
+            db.query.execute("select Usuario,Password from Cuentas");
+            ResultSet rs = db.query.getResultSet();
+            
+            while (rs.next()) {
+                if (tf_userli.getText().equals(rs.getString("Usuario")) && pf_passli.getText().equals(rs.getString("Password"))) {
+                    JOptionPane.showMessageDialog(jd_login, "Log In Successful");
+                }
+                System.out.println(rs.getString("Usuario") + "," + rs.getString("Password"));
+                
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        db.desconectar();
         
         
     }//GEN-LAST:event_bt_loginActionPerformed
@@ -811,11 +806,17 @@ public class Main extends javax.swing.JFrame {
                     + " (Nombre,Apellido,Usuario,Password,Edad,Creacion)"
                     + " VALUES ('" + nom + "', '" + ap + "','" + usuario + "','" + pass + "','" + edad + "','" + creacion + "'  )");
             db.commit();
+            JOptionPane.showMessageDialog(jd_registro, "Cuenta creada exitosamente");
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
         db.desconectar();
         
+        tf_nombreR.setText("");
+        tf_apellidoR.setText("");
+        tf_userR.setText("");
+        pf_passwordR.setText("");
+        sp_edadR.setValue(20);
         jd_registro.setVisible(false);
         
         
@@ -883,7 +884,10 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
