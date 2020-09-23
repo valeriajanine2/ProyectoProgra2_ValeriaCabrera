@@ -16,12 +16,12 @@ public class Correo {
     private Cuenta emisor;
     private ArrayList<Cuenta> receptores = new ArrayList();
     private String asunto;
-    private String mensaje;
+    private Documento mensaje;
 
     public Correo() {
     }
 
-    public Correo(Cuenta emisor, String asunto, String mensaje) {
+    public Correo(Cuenta emisor, String asunto, Documento mensaje) {
         this.emisor = emisor;
         this.asunto = asunto;
         this.mensaje = mensaje;
@@ -51,11 +51,11 @@ public class Correo {
         this.asunto = asunto;
     }
 
-    public String getMensaje() {
+    public Documento getMensaje() {
         return mensaje;
     }
 
-    public void setMensaje(String mensaje) {
+    public void setMensaje(Documento mensaje) {
         this.mensaje = mensaje;
     }
 

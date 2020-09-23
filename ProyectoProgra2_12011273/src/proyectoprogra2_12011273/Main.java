@@ -8,7 +8,12 @@ package proyectoprogra2_12011273;
 import java.awt.GraphicsEnvironment;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.paint.Color;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.text.AttributeSet;
@@ -107,6 +112,21 @@ public class Main extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         tp_texto = new javax.swing.JTextPane();
         wallpaper = new javax.swing.JLabel();
+        jd_editAcc = new javax.swing.JDialog();
+        jLabel20 = new javax.swing.JLabel();
+        jLabelLogo1 = new javax.swing.JLabel();
+        tf_apellidoRe = new javax.swing.JTextField();
+        jLabel24 = new javax.swing.JLabel();
+        tf_nombreRe = new javax.swing.JTextField();
+        bt_editAcc = new javax.swing.JButton();
+        jLabel26 = new javax.swing.JLabel();
+        tf_userRe = new javax.swing.JTextField();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
+        pf_passwordRe = new javax.swing.JPasswordField();
+        jLabel29 = new javax.swing.JLabel();
+        sp_edadRe = new javax.swing.JSpinner();
+        jLabel30 = new javax.swing.JLabel();
         jDesktopPane1 = new javax.swing.JDesktopPane();
         bt_redactar = new javax.swing.JButton();
         bt_entrada = new javax.swing.JButton();
@@ -131,14 +151,19 @@ public class Main extends javax.swing.JFrame {
         jToolBar1 = new javax.swing.JToolBar();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
         jLabel10 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tp_main = new javax.swing.JTextPane();
         jLabel21 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
+        mi_editAcc = new javax.swing.JMenuItem();
+        mi_showAcc = new javax.swing.JMenuItem();
+        mi_deleteAcc = new javax.swing.JMenuItem();
+        mi_logout = new javax.swing.JMenuItem();
+        mi_registro = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
 
         jd_login.setName("Log In"); // NOI18N
         jd_login.setUndecorated(true);
@@ -149,13 +174,13 @@ public class Main extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Georgia", 0, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(102, 102, 102));
         jLabel5.setText("Usuario:");
-        jd_login.getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 210, -1, -1));
+        jd_login.getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Georgia", 0, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(102, 102, 102));
         jLabel6.setText("Contraseña:");
-        jd_login.getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, -1, -1));
-        jd_login.getContentPane().add(tf_userli, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, 220, -1));
+        jd_login.getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, -1, -1));
+        jd_login.getContentPane().add(tf_userli, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 210, 220, -1));
 
         bt_login.setBackground(new java.awt.Color(51, 153, 255));
         bt_login.setFont(new java.awt.Font("Georgia", 0, 14)); // NOI18N
@@ -166,7 +191,7 @@ public class Main extends javax.swing.JFrame {
                 bt_loginActionPerformed(evt);
             }
         });
-        jd_login.getContentPane().add(bt_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 320, -1, -1));
+        jd_login.getContentPane().add(bt_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 320, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 153, 255));
@@ -182,19 +207,19 @@ public class Main extends javax.swing.JFrame {
                 jLabel8MouseExited(evt);
             }
         });
-        jd_login.getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 380, -1, -1));
+        jd_login.getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 380, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(153, 153, 153));
         jLabel7.setText("¿No tienes una cuenta aún?");
-        jd_login.getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 380, -1, -1));
+        jd_login.getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 380, -1, -1));
 
         jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectoprogra2_12011273/minigmail.png"))); // NOI18N
-        jd_login.getContentPane().add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, -1, -1));
-        jd_login.getContentPane().add(pf_passli, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 260, 220, -1));
+        jd_login.getContentPane().add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, -1, -1));
+        jd_login.getContentPane().add(pf_passli, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 260, 220, -1));
 
         jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectoprogra2_12011273/gradient-blue-linear-white-1920x1080-c2-f5f5f5-87cefa-a-255-f-14.png"))); // NOI18N
-        jd_login.getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 480, 540));
+        jd_login.getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 540));
 
         jd_registro.setName("Registro"); // NOI18N
         jd_registro.setUndecorated(true);
@@ -239,7 +264,7 @@ public class Main extends javax.swing.JFrame {
         jd_registro.getContentPane().add(tf_userR, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 300, 220, -1));
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel9.setText("@minigmail.com");
+        jLabel9.setText("@minigmail.edu");
         jd_registro.getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 300, -1, -1));
 
         jLabel14.setFont(new java.awt.Font("Georgia", 0, 14)); // NOI18N
@@ -257,7 +282,7 @@ public class Main extends javax.swing.JFrame {
         jd_registro.getContentPane().add(sp_edadR, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 400, 50, -1));
 
         jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectoprogra2_12011273/gradient-blue-linear-white-1920x1080-c2-f5f5f5-87cefa-a-255-f-14.png"))); // NOI18N
-        jd_registro.getContentPane().add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 560, 540));
+        jd_registro.getContentPane().add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 490, 540));
 
         jd_redactar.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -379,6 +404,69 @@ public class Main extends javax.swing.JFrame {
 
         wallpaper.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectoprogra2_12011273/gradient-blue-linear-white-1920x1080-c2-f5f5f5-87cefa-a-255-f-14.png"))); // NOI18N
         jd_redactar.getContentPane().add(wallpaper, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 510));
+
+        jd_editAcc.setName("Registro"); // NOI18N
+        jd_editAcc.setUndecorated(true);
+        jd_editAcc.setResizable(false);
+        jd_editAcc.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel20.setFont(new java.awt.Font("Georgia", 0, 14)); // NOI18N
+        jLabel20.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel20.setText("Edad:");
+        jd_editAcc.getContentPane().add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 400, -1, -1));
+
+        jLabelLogo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectoprogra2_12011273/minigmail.png"))); // NOI18N
+        jd_editAcc.getContentPane().add(jLabelLogo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, 300, 150));
+        jd_editAcc.getContentPane().add(tf_apellidoRe, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 250, 220, -1));
+
+        jLabel24.setFont(new java.awt.Font("Georgia", 0, 14)); // NOI18N
+        jLabel24.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel24.setText("Nombre:");
+        jd_editAcc.getContentPane().add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 200, -1, -1));
+        jd_editAcc.getContentPane().add(tf_nombreRe, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 200, 220, -1));
+
+        bt_editAcc.setBackground(new java.awt.Color(0, 153, 255));
+        bt_editAcc.setFont(new java.awt.Font("Georgia", 0, 14)); // NOI18N
+        bt_editAcc.setForeground(new java.awt.Color(255, 255, 255));
+        bt_editAcc.setText("Editar");
+        bt_editAcc.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bt_editAccMouseClicked(evt);
+            }
+        });
+        bt_editAcc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_editAccActionPerformed(evt);
+            }
+        });
+        jd_editAcc.getContentPane().add(bt_editAcc, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 480, -1, -1));
+
+        jLabel26.setFont(new java.awt.Font("Georgia", 0, 14)); // NOI18N
+        jLabel26.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel26.setText("Apellido:");
+        jd_editAcc.getContentPane().add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 250, -1, -1));
+        jd_editAcc.getContentPane().add(tf_userRe, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 300, 220, -1));
+
+        jLabel27.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel27.setText("@minigmail.edu");
+        jd_editAcc.getContentPane().add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 300, -1, -1));
+
+        jLabel28.setFont(new java.awt.Font("Georgia", 0, 14)); // NOI18N
+        jLabel28.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel28.setText("Usuario:");
+        jd_editAcc.getContentPane().add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 300, -1, -1));
+        jd_editAcc.getContentPane().add(pf_passwordRe, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 350, 220, -1));
+
+        jLabel29.setFont(new java.awt.Font("Georgia", 0, 14)); // NOI18N
+        jLabel29.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel29.setText("Contraseña:");
+        jd_editAcc.getContentPane().add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 350, -1, -1));
+
+        sp_edadRe.setModel(new javax.swing.SpinnerNumberModel(0, 0, 130, 1));
+        jd_editAcc.getContentPane().add(sp_edadRe, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 400, 50, -1));
+
+        jLabel30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectoprogra2_12011273/gradient-blue-linear-white-1920x1080-c2-f5f5f5-87cefa-a-255-f-14.png"))); // NOI18N
+        jd_editAcc.getContentPane().add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 490, 540));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -733,27 +821,46 @@ public class Main extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(226, 312, 422, 351));
-
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
-
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(686, 312, 390, 351));
         getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(545, 189, -1, -1));
 
         jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectoprogra2_12011273/minigmail.png"))); // NOI18N
         getContentPane().add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 40, -1, -1));
+
+        jScrollPane4.setViewportView(tp_main);
+
+        getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 310, 390, 350));
 
         jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectoprogra2_12011273/gradient-blue-linear-white-1920x1080-c2-f5f5f5-87cefa-a-255-f-14.png"))); // NOI18N
         getContentPane().add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1100, 750));
 
         jMenuBar1.setBackground(new java.awt.Color(102, 102, 102));
 
+        jMenu2.setText("My Account");
+
+        mi_editAcc.setText("Editar Cuenta");
+        jMenu2.add(mi_editAcc);
+
+        mi_showAcc.setText("Ver Cuenta");
+        jMenu2.add(mi_showAcc);
+
+        mi_deleteAcc.setText("Eliminar Cuenta");
+        jMenu2.add(mi_deleteAcc);
+
+        mi_logout.setText("Log Out");
+        jMenu2.add(mi_logout);
+
+        mi_registro.setText("Crear Cuenta");
+        mi_registro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_registroActionPerformed(evt);
+            }
+        });
+        jMenu2.add(mi_registro);
+
+        jMenuBar1.add(jMenu2);
+
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
-
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
 
@@ -946,7 +1053,7 @@ public class Main extends javax.swing.JFrame {
         BdD db = new BdD("./CuentasProyecto.accdb");
         db.conectar();
         try {
-            db.query.execute("select Usuario,Password from Cuentas");
+            db.query.execute("select Usuario,Password,Edad from Cuentas");
             ResultSet rs = db.query.getResultSet();
             
             while (rs.next()) {
@@ -956,6 +1063,7 @@ public class Main extends javax.swing.JFrame {
                     pf_passli.setText("");
                     flag=false;
                     jd_login.setVisible(false);
+                    client = new Cuenta(rs.getString(1),rs.getString(2),rs.getString("Usuario"),rs.getString("Password"),rs.getInt("Edad"));
                 }
             }
             if (flag) {
@@ -982,16 +1090,15 @@ public class Main extends javax.swing.JFrame {
         try {
             String nom, ap, usuario, pass;
             int edad;
-            Date creacion;
+            String creacion;
             nom = tf_nombreR.getText();
             ap = tf_apellidoR.getText();
-            usuario = tf_userR.getText();
+            usuario = tf_userR.getText()+"@minigmail.edu";
             pass = pf_passwordR.getText();
             edad = (int) sp_edadR.getValue();
-            creacion = new Date();
             db.query.execute("INSERT INTO Cuentas"
-                    + " (Nombre,Apellido,Usuario,Password,Edad,Creacion)"
-                    + " VALUES ('" + nom + "', '" + ap + "','" + usuario + "','" + pass + "','" + edad + "','" + creacion + "'  )");
+                    + " (Nombre,Apellido,Usuario,Password,Edad)"
+                    + " VALUES ('" + nom + "', '" + ap + "','" + usuario + "','" + pass + "','" + edad + "')");
             db.commit();
             JOptionPane.showMessageDialog(jd_registro, "Cuenta creada exitosamente");
         } catch (SQLException ex) {
@@ -1032,7 +1139,6 @@ public class Main extends javax.swing.JFrame {
     private void cb_fontItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_fontItemStateChanged
         //set font
         StyleConstants.setFontFamily(estilo, cb_font.getSelectedItem().toString());
-        //StyleConstants.setFontSize(estilo, Integer.parseInt(cb_font.getSelectedItem().toString()));
         doc.setCharacterAttributes(tp_texto.getSelectionStart(),
                 tp_texto.getSelectionEnd() - tp_texto.getSelectionStart(),
                 tp_texto.getStyle("miEstilo"),
@@ -1040,7 +1146,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_cb_fontItemStateChanged
 
     private void bt_boldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_boldActionPerformed
-        // TODO add your handling code here:
+        //bold text
         try {
             StyleConstants.setBold(estilo, true);
 
@@ -1053,7 +1159,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_boldActionPerformed
 
     private void bt_italicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_italicActionPerformed
-        // TODO add your handling code here:
+        //italic font
         try {
             StyleConstants.setItalic(estilo, true);
 
@@ -1066,7 +1172,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_italicActionPerformed
 
     private void bt_underlineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_underlineActionPerformed
-        
+        //underline text
         try {
             StyleConstants.setUnderline(estilo, true);
 
@@ -1080,7 +1186,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_underlineActionPerformed
 
     private void bt_highlightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_highlightActionPerformed
-        // TODO add your handling code here:
+        //text highlight
         try {
 
             StyleConstants.setBackground(estilo,
@@ -1098,7 +1204,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_highlightActionPerformed
 
     private void bt_textcolorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_textcolorActionPerformed
-        // TODO add your handling code here:
+        //text color
         try {
 
             StyleConstants.setForeground(estilo,
@@ -1118,7 +1224,56 @@ public class Main extends javax.swing.JFrame {
         //enviar un correo
         
         
+        
     }//GEN-LAST:event_bt_sendActionPerformed
+
+    private void mi_registroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_registroActionPerformed
+        //agregar otra cuenta cuando ya está logged in
+        
+        BdD db = new BdD("./CuentasProyecto.accdb");
+        db.conectar();
+        try {
+            String nom, ap, usuario, pass;
+            int edad;
+            Date creacion;
+            nom = tf_nombreRe.getText();
+            ap = tf_apellidoRe.getText();
+            usuario = tf_userRe.getText()+"@minigmail.edu";
+            pass = pf_passwordRe.getText();
+            edad = (int) sp_edadRe.getValue();
+            creacion = new Date();
+            db.query.execute("INSERT INTO Cuentas"
+                    + " (Nombre,Apellido,Usuario,Password,Edad,Creacion)"
+                    + " VALUES ('" + nom + "', '" + ap + "','" + usuario + "','" + pass + "','" + edad + "','" + creacion + "'  )");
+            db.commit();
+            JOptionPane.showMessageDialog(jd_registro, "Cuenta creada exitosamente");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        db.desconectar();
+        
+        tf_nombreRe.setText("");
+        tf_apellidoRe.setText("");
+        tf_userRe.setText("");
+        pf_passwordRe.setText("");
+        sp_edadRe.setValue(20);
+        jd_editAcc.setVisible(false);
+        
+    }//GEN-LAST:event_mi_registroActionPerformed
+
+    private void bt_editAccMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_editAccMouseClicked
+        // menu item que abre el edit
+        jd_editAcc.setModal(true); //no poder tocar a principal
+        jd_editAcc.pack();//tamaño se acople a los controles preestablecidos
+        jd_editAcc.setLocationRelativeTo(this);//centro de la principal
+        jd_editAcc.setVisible(true);
+    }//GEN-LAST:event_bt_editAccMouseClicked
+
+    private void bt_editAccActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_editAccActionPerformed
+        //boton para registrar
+        
+        
+    }//GEN-LAST:event_bt_editAccActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1160,6 +1315,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton bt_borradores;
     private javax.swing.JButton bt_chats;
     private javax.swing.JButton bt_drive;
+    private javax.swing.JButton bt_editAcc;
     private javax.swing.JButton bt_eliminados;
     private javax.swing.JButton bt_entrada;
     private javax.swing.JButton bt_favoritos;
@@ -1193,11 +1349,18 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1205,36 +1368,54 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelLogo;
+    private javax.swing.JLabel jLabelLogo1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JToolBar jToolBar2;
+    private javax.swing.JDialog jd_editAcc;
     private javax.swing.JDialog jd_login;
     private javax.swing.JDialog jd_redactar;
     private javax.swing.JDialog jd_registro;
+    private javax.swing.JMenuItem mi_deleteAcc;
+    private javax.swing.JMenuItem mi_editAcc;
+    private javax.swing.JMenuItem mi_logout;
+    private javax.swing.JMenuItem mi_registro;
+    private javax.swing.JMenuItem mi_showAcc;
     private javax.swing.JPasswordField pf_passli;
     private javax.swing.JPasswordField pf_passwordR;
+    private javax.swing.JPasswordField pf_passwordRe;
     private javax.swing.JSpinner sp_edadR;
+    private javax.swing.JSpinner sp_edadRe;
     private javax.swing.JTextField tf_apellidoR;
+    private javax.swing.JTextField tf_apellidoRe;
     private javax.swing.JTextField tf_asunto;
     private javax.swing.JTextField tf_nombreR;
+    private javax.swing.JTextField tf_nombreRe;
     private javax.swing.JTextField tf_para;
     private javax.swing.JTextField tf_userR;
+    private javax.swing.JTextField tf_userRe;
     private javax.swing.JTextField tf_userli;
+    private javax.swing.JTextPane tp_main;
     private javax.swing.JTextPane tp_texto;
     private javax.swing.JLabel wallpaper;
     // End of variables declaration//GEN-END:variables
     StyledDocument doc;
     Style estilo;
+    Cuenta client;
+    ArrayList<Correo> entrada = new ArrayList();
+    ArrayList<Correo> salida = new ArrayList();
+    ArrayList<Correo> eliminados = new ArrayList();
+    ArrayList<Correo> borradores = new ArrayList();
+    ArrayList<Correo> spam = new ArrayList();
 
 }

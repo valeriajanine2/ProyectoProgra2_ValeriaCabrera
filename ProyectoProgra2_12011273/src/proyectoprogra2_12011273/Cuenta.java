@@ -18,18 +18,16 @@ public class Cuenta {
     private String user;
     private String password;
     private int edad;
-    private Date creacion;
 
     public Cuenta() {
     }
 
-    public Cuenta(String nombre, String apellido, String user, String password, int edad, Date creacion) {
+    public Cuenta(String nombre, String apellido, String user, String password, int edad) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.user = user;
         this.password = password;
         this.edad = edad;
-        this.creacion = creacion;
     }
 
     public String getNombre() {
@@ -70,14 +68,6 @@ public class Cuenta {
 
     public void setEdad(int edad) {
         this.edad = edad;
-    }
-
-    public Date getCreacion() {
-        return creacion;
-    }
-
-    public void setCreacion(Date creacion) {
-        this.creacion = creacion;
     }
 
     @Override
