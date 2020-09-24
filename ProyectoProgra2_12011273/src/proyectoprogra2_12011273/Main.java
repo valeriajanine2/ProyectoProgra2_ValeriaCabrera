@@ -128,6 +128,14 @@ public class Main extends javax.swing.JFrame {
         jLabel29 = new javax.swing.JLabel();
         sp_edadRe = new javax.swing.JSpinner();
         jLabel30 = new javax.swing.JLabel();
+        jd_tareas = new javax.swing.JDialog();
+        jLabel31 = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
+        tf_asuntoT = new javax.swing.JTextField();
+        jLabel33 = new javax.swing.JLabel();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jLabel34 = new javax.swing.JLabel();
+        jDateChooser2 = new com.toedter.calendar.JDateChooser();
         jDesktopPane1 = new javax.swing.JDesktopPane();
         bt_redactar = new javax.swing.JButton();
         bt_entrada = new javax.swing.JButton();
@@ -475,6 +483,60 @@ public class Main extends javax.swing.JFrame {
 
         jLabel30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectoprogra2_12011273/gradient-blue-linear-white-1920x1080-c2-f5f5f5-87cefa-a-255-f-14.png"))); // NOI18N
         jd_editAcc.getContentPane().add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 490, 540));
+
+        jLabel31.setFont(new java.awt.Font("Georgia", 1, 36)); // NOI18N
+        jLabel31.setForeground(new java.awt.Color(0, 153, 204));
+        jLabel31.setText("Tareas");
+
+        jLabel32.setText("Asunto:");
+
+        jLabel33.setText("Inicio:");
+
+        jLabel34.setText("Vencimiento:");
+
+        javax.swing.GroupLayout jd_tareasLayout = new javax.swing.GroupLayout(jd_tareas.getContentPane());
+        jd_tareas.getContentPane().setLayout(jd_tareasLayout);
+        jd_tareasLayout.setHorizontalGroup(
+            jd_tareasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jd_tareasLayout.createSequentialGroup()
+                .addGap(223, 223, 223)
+                .addComponent(jLabel31))
+            .addGroup(jd_tareasLayout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(jLabel32)
+                .addGap(6, 6, 6)
+                .addComponent(tf_asuntoT, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jd_tareasLayout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addComponent(jLabel33)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
+                .addComponent(jLabel34)
+                .addGap(6, 6, 6)
+                .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jd_tareasLayout.setVerticalGroup(
+            jd_tareasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jd_tareasLayout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addGroup(jd_tareasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jd_tareasLayout.createSequentialGroup()
+                        .addComponent(jLabel31)
+                        .addGap(18, 18, 18)
+                        .addGroup(jd_tareasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jd_tareasLayout.createSequentialGroup()
+                                .addGap(4, 4, 4)
+                                .addComponent(jLabel32))
+                            .addComponent(tf_asuntoT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(27, 27, 27)
+                        .addGroup(jd_tareasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel34)
+                            .addComponent(jLabel33))))
+                .addGap(3, 3, 3))
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -839,6 +901,11 @@ public class Main extends javax.swing.JFrame {
         bt_spamTB.setFocusable(false);
         bt_spamTB.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         bt_spamTB.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        bt_spamTB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_spamTBActionPerformed(evt);
+            }
+        });
         jToolBar1.add(bt_spamTB);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -1132,11 +1199,12 @@ public class Main extends javax.swing.JFrame {
                     jd_login.setVisible(false);
                     client = new Cuenta(rs.getString(1),rs.getString(2),rs.getString("Usuario"),rs.getString("Password"),rs.getInt("Edad"));
                     System.out.println(client);
+                    borrarTabla();
+                    this.setVisible(true);
                 }
             }
             if (flag) {
                 JOptionPane.showMessageDialog(jd_login, "No existe su cuenta");
-                this.setVisible(true);
             }
             
         } catch (SQLException ex) {
@@ -1570,6 +1638,30 @@ public class Main extends javax.swing.JFrame {
         
     }//GEN-LAST:event_mi_logoutActionPerformed
 
+    private void bt_spamTBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_spamTBActionPerformed
+        
+        //boton de spam del tool bar
+        
+        DefaultTableModel mod = (DefaultTableModel) jt_main.getModel();
+        BinarioCorreo bt = new BinarioCorreo("./"+client.getNombre()+"_"+client.getApellido()+".spam");
+        bt.cargarArchivo();
+        //crear nuevo obj
+        ArrayList<String> rec = (ArrayList<String>)jt_main.getValueAt(jt_main.getSelectedRow(),1);
+        String as = (String)jt_main.getValueAt(jt_main.getSelectedRow(),2);
+        Documento d = (Documento)jt_main.getValueAt(jt_main.getSelectedRow(),3);
+        Correo mail = new Correo(client,as,d);
+        mail.setReceptores(rec);
+        eliminados.add(mail);
+        bt.setListaCorreos(eliminados);
+        bt.escribirArchivo();
+        
+        //remover la fila
+        mod.removeRow(jt_main.getSelectedRow());
+        
+        jt_main.setModel(mod);
+        
+    }//GEN-LAST:event_bt_spamTBActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1641,6 +1733,8 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton bt_underline;
     private javax.swing.JComboBox<String> cb_font;
     private javax.swing.JComboBox<String> cb_fontsize;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -1666,6 +1760,10 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1690,6 +1788,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JDialog jd_login;
     private javax.swing.JDialog jd_redactar;
     private javax.swing.JDialog jd_registro;
+    private javax.swing.JDialog jd_tareas;
     private javax.swing.JTable jt_main;
     private javax.swing.JMenuItem mi_deleteAcc;
     private javax.swing.JMenuItem mi_editAcc;
@@ -1704,6 +1803,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JTextField tf_apellidoR;
     private javax.swing.JTextField tf_apellidoRe;
     private javax.swing.JTextField tf_asunto;
+    private javax.swing.JTextField tf_asuntoT;
     private javax.swing.JTextField tf_nombreR;
     private javax.swing.JTextField tf_nombreRe;
     private javax.swing.JTextField tf_para;
