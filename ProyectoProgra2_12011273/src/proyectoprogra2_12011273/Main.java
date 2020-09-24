@@ -499,6 +499,11 @@ public class Main extends javax.swing.JFrame {
                 bt_entradaMouseExited(evt);
             }
         });
+        bt_entrada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_entradaActionPerformed(evt);
+            }
+        });
 
         bt_salida.setBackground(new java.awt.Color(0, 189, 253));
         bt_salida.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
@@ -1249,11 +1254,36 @@ public class Main extends javax.swing.JFrame {
             //agregar path a base de datos
             db.query.execute("update Cuentas set Salida='./"+client.getNombre()+"_"+client.getApellido()+".sal"+"' where Usuario='"+client.getUser()+"'");
             db.commit();
-            //agregar correo a binario
+            //agregar correo a binario de salida
             BinarioCorreo bc = new BinarioCorreo("./"+client.getNombre()+"_"+client.getApellido()+".sal");
             bc.cargarArchivo();
             bc.setCorreo(email);
             bc.escribirArchivo();
+            
+            //agregar a bandeja de entrada de los receptores
+            for (int i = 0; i < email.getReceptores().size(); i++) {
+                
+                db.query.execute("update Cuentas set Entrada='./" + client.getNombre() + "_" + client.getApellido() + ".ent" + "' where Usuario='" + email.getReceptores().get(i) + "'");
+                db.commit();
+                
+                //recorrer la base de datos para agarrar la informacion del receptor
+                db.query.execute("select Nombre,Apellido,Usuario,Password,Edad,Entrada from Cuentas");
+                ResultSet rs = db.query.getResultSet();
+                while (rs.next()) {
+                    if (rs.getString("Usuario").equals(email.getReceptores().get(i))) {
+                        
+                        Cuenta re = new Cuenta(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5));
+                        //agregar correo a binario de salida
+                        BinarioCorreo be = new BinarioCorreo("./" + re.getNombre() + "_" + re.getApellido() + ".ent");
+                        be.cargarArchivo();
+                        be.setCorreo(email);
+                        be.escribirArchivo();
+                        
+                    }
+                }
+                
+                
+            }
             
             
         } catch (SQLException ex) {
@@ -1333,6 +1363,22 @@ public class Main extends javax.swing.JFrame {
         tp_main.setStyledDocument(d.getDoc());
         
     }//GEN-LAST:event_jt_mainMouseClicked
+
+    private void bt_entradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_entradaActionPerformed
+        //boton para mostrar bandeja de entrada
+        
+        DefaultTableModel mod = (DefaultTableModel) jt_main.getModel();
+        BinarioCorreo bt = new BinarioCorreo("./"+client.getNombre()+"_"+client.getApellido()+".ent");
+        bt.cargarArchivo();
+        for (int i = 0; i < bt.getListaCorreos().size(); i++) {
+            Correo t = bt.getListaCorreos().get(i);
+            Object[]newrow = {t.getEmisor().getUser(),t.getReceptores(),t.getAsunto(),t.getMensaje()};
+            mod.addRow(newrow);
+        }
+        jt_main.setModel(mod);
+        
+        
+    }//GEN-LAST:event_bt_entradaActionPerformed
 
     /**
      * @param args the command line arguments
