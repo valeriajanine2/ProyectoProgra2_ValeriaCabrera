@@ -535,6 +535,11 @@ public class Main extends javax.swing.JFrame {
                 bt_eliminadosMouseExited(evt);
             }
         });
+        bt_eliminados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_eliminadosActionPerformed(evt);
+            }
+        });
 
         bt_borradores.setBackground(new java.awt.Color(0, 189, 253));
         bt_borradores.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
@@ -548,6 +553,11 @@ public class Main extends javax.swing.JFrame {
                 bt_borradoresMouseExited(evt);
             }
         });
+        bt_borradores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_borradoresActionPerformed(evt);
+            }
+        });
 
         bt_spam.setBackground(new java.awt.Color(0, 189, 253));
         bt_spam.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
@@ -559,6 +569,11 @@ public class Main extends javax.swing.JFrame {
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 bt_spamMouseExited(evt);
+            }
+        });
+        bt_spam.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_spamActionPerformed(evt);
             }
         });
 
@@ -854,6 +869,11 @@ public class Main extends javax.swing.JFrame {
         jMenu2.setText("My Account");
 
         mi_editAcc.setText("Editar Cuenta");
+        mi_editAcc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_editAccActionPerformed(evt);
+            }
+        });
         jMenu2.add(mi_editAcc);
 
         mi_showAcc.setText("Ver Cuenta");
@@ -1345,6 +1365,8 @@ public class Main extends javax.swing.JFrame {
     private void bt_salidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_salidaActionPerformed
         //boton para mostrar bandeja de salida
         
+        borrarTabla();
+        
         DefaultTableModel mod = (DefaultTableModel) jt_main.getModel();
         BinarioCorreo bt = new BinarioCorreo("./"+client.getNombre()+"_"+client.getApellido()+".sal");
         bt.cargarArchivo();
@@ -1367,6 +1389,8 @@ public class Main extends javax.swing.JFrame {
     private void bt_entradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_entradaActionPerformed
         //boton para mostrar bandeja de entrada
         
+        borrarTabla();
+        
         DefaultTableModel mod = (DefaultTableModel) jt_main.getModel();
         BinarioCorreo bt = new BinarioCorreo("./"+client.getNombre()+"_"+client.getApellido()+".ent");
         bt.cargarArchivo();
@@ -1379,6 +1403,37 @@ public class Main extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_bt_entradaActionPerformed
+
+    private void bt_eliminadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_eliminadosActionPerformed
+        //boton para mostrar bandeja de eliminados
+        
+        borrarTabla();
+        
+    }//GEN-LAST:event_bt_eliminadosActionPerformed
+
+    private void bt_borradoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_borradoresActionPerformed
+        //boton para mostrar bandeja de borradores
+        
+        borrarTabla();
+        
+    }//GEN-LAST:event_bt_borradoresActionPerformed
+
+    private void bt_spamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_spamActionPerformed
+        //boton para mostrar bandeja de spam
+        
+        borrarTabla();
+        
+    }//GEN-LAST:event_bt_spamActionPerformed
+
+    private void mi_editAccActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_editAccActionPerformed
+        //menu item para editar la cuenta
+        
+        jd_editAcc.setModal(true); //no poder tocar a principal
+        jd_editAcc.pack();//tamaño se acople a los controles preestablecidos
+        jd_editAcc.setLocationRelativeTo(this);//centro de la principal
+        jd_editAcc.setVisible(true);
+        
+    }//GEN-LAST:event_mi_editAccActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1413,6 +1468,14 @@ public class Main extends javax.swing.JFrame {
                 new Main().setVisible(true);
             }
         });
+    }
+    
+    public void borrarTabla() {
+        DefaultTableModel dm = (DefaultTableModel) jt_main.getModel();
+        while (dm.getRowCount() > 0) {
+            dm.removeRow(0);
+        }
+        jt_main.setModel(dm);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
