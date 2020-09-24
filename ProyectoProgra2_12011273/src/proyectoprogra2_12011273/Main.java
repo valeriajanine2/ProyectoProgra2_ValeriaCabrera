@@ -150,6 +150,8 @@ public class Main extends javax.swing.JFrame {
         bt_settings = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jToolBar1 = new javax.swing.JToolBar();
+        bt_deleteTB = new javax.swing.JButton();
+        bt_spamTB = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jt_main = new javax.swing.JTable();
         jLabel10 = new javax.swing.JLabel();
@@ -387,6 +389,11 @@ public class Main extends javax.swing.JFrame {
         bt_saveborrador.setFocusable(false);
         bt_saveborrador.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         bt_saveborrador.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        bt_saveborrador.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bt_saveborradorMouseClicked(evt);
+            }
+        });
         jd_redactar.getContentPane().add(bt_saveborrador, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 460, -1, -1));
 
         bt_send.setBackground(new java.awt.Color(0, 153, 204));
@@ -817,6 +824,23 @@ public class Main extends javax.swing.JFrame {
 
         jToolBar1.setRollover(true);
 
+        bt_deleteTB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectoprogra2_12011273/Eliminados.png"))); // NOI18N
+        bt_deleteTB.setFocusable(false);
+        bt_deleteTB.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        bt_deleteTB.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        bt_deleteTB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_deleteTBActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(bt_deleteTB);
+
+        bt_spamTB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectoprogra2_12011273/Spam.png"))); // NOI18N
+        bt_spamTB.setFocusable(false);
+        bt_spamTB.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        bt_spamTB.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(bt_spamTB);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -830,7 +854,7 @@ public class Main extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -883,6 +907,11 @@ public class Main extends javax.swing.JFrame {
         jMenu2.add(mi_deleteAcc);
 
         mi_logout.setText("Log Out");
+        mi_logout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_logoutActionPerformed(evt);
+            }
+        });
         jMenu2.add(mi_logout);
 
         mi_registro.setText("Crear Cuenta");
@@ -1082,7 +1111,9 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel8MouseExited
 
     private void bt_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_loginActionPerformed
-    
+        
+        
+        
         //recorrer la base de datos para ver si existe la cuenta
         
         boolean flag=true;
@@ -1105,7 +1136,9 @@ public class Main extends javax.swing.JFrame {
             }
             if (flag) {
                 JOptionPane.showMessageDialog(jd_login, "No existe su cuenta");
+                this.setVisible(true);
             }
+            
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -1305,11 +1338,15 @@ public class Main extends javax.swing.JFrame {
                 
             }
             
-            
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
         db.desconectar();
+        
+        tf_para.setText("");
+        tf_asunto.setText("");
+        tp_texto.setText("");
+        jd_redactar.setVisible(false);
         
         
     }//GEN-LAST:event_bt_sendActionPerformed
@@ -1409,6 +1446,16 @@ public class Main extends javax.swing.JFrame {
         
         borrarTabla();
         
+        DefaultTableModel mod = (DefaultTableModel) jt_main.getModel();
+        BinarioCorreo bt = new BinarioCorreo("./"+client.getNombre()+"_"+client.getApellido()+".eli");
+        bt.cargarArchivo();
+        for (int i = 0; i < bt.getListaCorreos().size(); i++) {
+            Correo t = bt.getListaCorreos().get(i);
+            Object[]newrow = {t.getEmisor().getUser(),t.getReceptores(),t.getAsunto(),t.getMensaje()};
+            mod.addRow(newrow);
+        }
+        jt_main.setModel(mod);
+        
     }//GEN-LAST:event_bt_eliminadosActionPerformed
 
     private void bt_borradoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_borradoresActionPerformed
@@ -1416,12 +1463,23 @@ public class Main extends javax.swing.JFrame {
         
         borrarTabla();
         
+        DefaultTableModel mod = (DefaultTableModel) jt_main.getModel();
+        BinarioCorreo bt = new BinarioCorreo("./"+client.getNombre()+"_"+client.getApellido()+".bor");
+        bt.cargarArchivo();
+        for (int i = 0; i < bt.getListaCorreos().size(); i++) {
+            Correo t = bt.getListaCorreos().get(i);
+            Object[]newrow = {t.getEmisor().getUser(),t.getReceptores(),t.getAsunto(),t.getMensaje()};
+            mod.addRow(newrow);
+        }
+        jt_main.setModel(mod);
+        
     }//GEN-LAST:event_bt_borradoresActionPerformed
 
     private void bt_spamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_spamActionPerformed
         //boton para mostrar bandeja de spam
         
         borrarTabla();
+        
         
     }//GEN-LAST:event_bt_spamActionPerformed
 
@@ -1434,6 +1492,83 @@ public class Main extends javax.swing.JFrame {
         jd_editAcc.setVisible(true);
         
     }//GEN-LAST:event_mi_editAccActionPerformed
+
+    private void bt_saveborradorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_saveborradorMouseClicked
+        //boton para guardar en la bandeja de borradores
+        
+        Documento d = new Documento(tp_texto,doc,estilo);
+        Correo email = new Correo(client,tf_asunto.getText(),d);
+        borradores.add(email);
+        String [] temp = tf_para.getText().split(",");
+        for (int i = 0; i < temp.length; i++) {
+            email.getReceptores().add(temp[i]);
+        }
+        
+        //agregar a la base de datos el path del archivo binarios
+        BdD db = new BdD("./CuentasProyecto.accdb");
+        db.conectar();
+        try {
+            //agregar path a base de datos
+            db.query.execute("update Cuentas set Borradores='./"+client.getNombre()+"_"+client.getApellido()+".bor"+"' where Usuario='"+client.getUser()+"'");
+            db.commit();
+            //agregar correo a binario de salida
+            BinarioCorreo bc = new BinarioCorreo("./"+client.getNombre()+"_"+client.getApellido()+".bor");
+            bc.cargarArchivo();
+            bc.setCorreo(email);
+            bc.escribirArchivo();
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        db.desconectar();
+        
+        tf_para.setText("");
+        tf_asunto.setText("");
+        tp_texto.setText("");
+        jd_redactar.setVisible(false);
+        
+    }//GEN-LAST:event_bt_saveborradorMouseClicked
+
+    private void bt_deleteTBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_deleteTBActionPerformed
+        //boton de la tool bar para poder eliminar el correo seleccionado
+        
+        DefaultTableModel mod = (DefaultTableModel) jt_main.getModel();
+        BinarioCorreo bt = new BinarioCorreo("./"+client.getNombre()+"_"+client.getApellido()+".eli");
+        bt.cargarArchivo();
+        //crear nuevo obj
+        ArrayList<String> rec = (ArrayList<String>)jt_main.getValueAt(jt_main.getSelectedRow(),1);
+        String as = (String)jt_main.getValueAt(jt_main.getSelectedRow(),2);
+        Documento d = (Documento)jt_main.getValueAt(jt_main.getSelectedRow(),3);
+        Correo mail = new Correo(client,as,d);
+        mail.setReceptores(rec);
+        eliminados.add(mail);
+        bt.setListaCorreos(eliminados);
+        bt.escribirArchivo();
+        
+        //remover la fila
+        mod.removeRow(jt_main.getSelectedRow());
+        
+        jt_main.setModel(mod);
+        
+    }//GEN-LAST:event_bt_deleteTBActionPerformed
+
+    private void mi_logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_logoutActionPerformed
+        //log out
+        
+        client = new Cuenta();
+        ArrayList<Correo> entrada = new ArrayList();
+        ArrayList<Correo> salida = new ArrayList();
+        ArrayList<Correo> eliminados = new ArrayList();
+        ArrayList<Correo> borradores = new ArrayList();
+        ArrayList<Correo> spam = new ArrayList();
+        
+        this.setVisible(false);
+        jd_login.setModal(true); //no poder tocar a principal
+        jd_login.pack();//tamaño se acople a los controles preestablecidos
+        jd_login.setLocationRelativeTo(this);//centro de la principal
+        jd_login.setVisible(true);
+        
+    }//GEN-LAST:event_mi_logoutActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1482,6 +1617,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton bt_bold;
     private javax.swing.JButton bt_borradores;
     private javax.swing.JButton bt_chats;
+    private javax.swing.JButton bt_deleteTB;
     private javax.swing.JButton bt_drive;
     private javax.swing.JButton bt_editAcc;
     private javax.swing.JButton bt_eliminados;
@@ -1498,6 +1634,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton bt_send;
     private javax.swing.JButton bt_settings;
     private javax.swing.JButton bt_spam;
+    private javax.swing.JButton bt_spamTB;
     private javax.swing.JButton bt_tareas;
     private javax.swing.JButton bt_textcolor;
     private javax.swing.JButton bt_todos;
