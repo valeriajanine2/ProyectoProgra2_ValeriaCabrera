@@ -15,17 +15,17 @@ public class Tareas {
     
     private String asunto;
     private String descripcion;
-    private String estado;
+    private String hora;
     private Date inicio;
     private Date fin;
 
     public Tareas() {
     }
 
-    public Tareas(String asunto, String descripcion, String estado, Date inicio, Date fin) {
+    public Tareas(String asunto, String descripcion, String hora, Date inicio, Date fin) {
         this.asunto = asunto;
         this.descripcion = descripcion;
-        this.estado = estado;
+        this.hora = hora;
         this.inicio = inicio;
         this.fin = fin;
     }
@@ -46,12 +46,12 @@ public class Tareas {
         this.descripcion = descripcion;
     }
 
-    public String getEstado() {
-        return estado;
+    public String getHora() {
+        return hora;
     }
 
-    public void setEstado(String estado) {
-        this.estado = estado;
+    public void setHora(String estado) {
+        this.hora = estado;
     }
 
     public Date getInicio() {
@@ -72,7 +72,7 @@ public class Tareas {
 
     @Override
     public String toString() {
-        return "Tareas{" + "asunto=" + asunto + ", descripcion=" + descripcion + ", estado=" + estado + ", inicio=" + inicio + ", fin=" + fin + '}';
+        return "Tareas{" + "asunto=" + asunto + ", descripcion=" + descripcion + ", hora=" + hora + ", inicio=" + inicio + ", fin=" + fin + '}';
     }
     
     

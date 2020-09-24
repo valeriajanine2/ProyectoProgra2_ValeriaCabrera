@@ -8,6 +8,7 @@ package proyectoprogra2_12011273;
 import java.awt.GraphicsEnvironment;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -38,6 +39,14 @@ public class Main extends javax.swing.JFrame {
      */
     public Main() {
         initComponents();
+        
+        //comenzar el hilo
+        HiloHora h=new HiloHora(jl_hora);
+        //crear objeto de tipo thread
+        //e instanciarlo al objeto anterior
+        Thread proceso1 = new Thread(h);
+        proceso1.start();//para comenzar la tarea
+        
         //para style del formato
         doc = tp_texto.getStyledDocument();
         estilo = tp_texto.addStyle("miEstilo", null);
@@ -133,9 +142,21 @@ public class Main extends javax.swing.JFrame {
         jLabel32 = new javax.swing.JLabel();
         tf_asuntoT = new javax.swing.JTextField();
         jLabel33 = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jdc_inicio = new com.toedter.calendar.JDateChooser();
         jLabel34 = new javax.swing.JLabel();
-        jDateChooser2 = new com.toedter.calendar.JDateChooser();
+        jdc_final = new com.toedter.calendar.JDateChooser();
+        jLabel35 = new javax.swing.JLabel();
+        tf_mensajeT = new javax.swing.JTextField();
+        jLabel36 = new javax.swing.JLabel();
+        sp_min = new javax.swing.JSpinner();
+        sp_hora = new javax.swing.JSpinner();
+        bt_programar = new javax.swing.JButton();
+        jLabel37 = new javax.swing.JLabel();
+        jd_contactos = new javax.swing.JDialog();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        ta_contactos = new javax.swing.JTextArea();
+        jLabel38 = new javax.swing.JLabel();
+        jl_hora = new javax.swing.JLabel();
         jDesktopPane1 = new javax.swing.JDesktopPane();
         bt_redactar = new javax.swing.JButton();
         bt_entrada = new javax.swing.JButton();
@@ -145,7 +166,6 @@ public class Main extends javax.swing.JFrame {
         bt_spam = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
-        bt_favoritos = new javax.swing.JButton();
         bt_todos = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JSeparator();
         jSeparator4 = new javax.swing.JSeparator();
@@ -154,8 +174,6 @@ public class Main extends javax.swing.JFrame {
         bt_chats = new javax.swing.JButton();
         bt_tareas = new javax.swing.JButton();
         bt_reuniones = new javax.swing.JButton();
-        bt_drive = new javax.swing.JButton();
-        bt_settings = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jToolBar1 = new javax.swing.JToolBar();
         bt_deleteTB = new javax.swing.JButton();
@@ -169,12 +187,8 @@ public class Main extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
-        mi_editAcc = new javax.swing.JMenuItem();
-        mi_showAcc = new javax.swing.JMenuItem();
-        mi_deleteAcc = new javax.swing.JMenuItem();
         mi_logout = new javax.swing.JMenuItem();
         mi_registro = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
 
         jd_login.setName("Log In"); // NOI18N
         jd_login.setUndecorated(true);
@@ -484,63 +498,85 @@ public class Main extends javax.swing.JFrame {
         jLabel30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectoprogra2_12011273/gradient-blue-linear-white-1920x1080-c2-f5f5f5-87cefa-a-255-f-14.png"))); // NOI18N
         jd_editAcc.getContentPane().add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 490, 540));
 
+        jd_tareas.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         jLabel31.setFont(new java.awt.Font("Georgia", 1, 36)); // NOI18N
         jLabel31.setForeground(new java.awt.Color(0, 153, 204));
         jLabel31.setText("Tareas");
+        jd_tareas.getContentPane().add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(223, 17, -1, -1));
 
         jLabel32.setText("Asunto:");
+        jd_tareas.getContentPane().add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 80, -1, -1));
+        jd_tareas.getContentPane().add(tf_asuntoT, new org.netbeans.lib.awtextra.AbsoluteConstraints(77, 76, 490, -1));
 
         jLabel33.setText("Inicio:");
+        jd_tareas.getContentPane().add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, -1, -1));
+        jd_tareas.getContentPane().add(jdc_inicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(77, 127, 200, -1));
 
         jLabel34.setText("Vencimiento:");
+        jd_tareas.getContentPane().add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 140, -1, -1));
+        jd_tareas.getContentPane().add(jdc_final, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 130, 180, -1));
 
-        javax.swing.GroupLayout jd_tareasLayout = new javax.swing.GroupLayout(jd_tareas.getContentPane());
-        jd_tareas.getContentPane().setLayout(jd_tareasLayout);
-        jd_tareasLayout.setHorizontalGroup(
-            jd_tareasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jd_tareasLayout.createSequentialGroup()
-                .addGap(223, 223, 223)
-                .addComponent(jLabel31))
-            .addGroup(jd_tareasLayout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(jLabel32)
-                .addGap(6, 6, 6)
-                .addComponent(tf_asuntoT, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jd_tareasLayout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addComponent(jLabel33)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
-                .addComponent(jLabel34)
-                .addGap(6, 6, 6)
-                .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+        jLabel35.setText("Aviso:");
+        jd_tareas.getContentPane().add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 184, -1, -1));
+        jd_tareas.getContentPane().add(tf_mensajeT, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 222, 479, -1));
+
+        jLabel36.setText("Mensaje:");
+        jd_tareas.getContentPane().add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 226, -1, -1));
+        jd_tareas.getContentPane().add(sp_min, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 180, 70, -1));
+        jd_tareas.getContentPane().add(sp_hora, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 180, 60, -1));
+
+        bt_programar.setBackground(new java.awt.Color(0, 102, 204));
+        bt_programar.setText("Programar");
+        bt_programar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_programarActionPerformed(evt);
+            }
+        });
+        jd_tareas.getContentPane().add(bt_programar, new org.netbeans.lib.awtextra.AbsoluteConstraints(241, 264, -1, -1));
+
+        jLabel37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectoprogra2_12011273/gradient-blue-linear-white-1920x1080-c2-f5f5f5-87cefa-a-255-f-14.png"))); // NOI18N
+        jd_tareas.getContentPane().add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 620, 330));
+
+        ta_contactos.setColumns(20);
+        ta_contactos.setRows(5);
+        jScrollPane2.setViewportView(ta_contactos);
+
+        jLabel38.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
+        jLabel38.setForeground(new java.awt.Color(0, 102, 204));
+        jLabel38.setText("Contactos");
+
+        javax.swing.GroupLayout jd_contactosLayout = new javax.swing.GroupLayout(jd_contactos.getContentPane());
+        jd_contactos.getContentPane().setLayout(jd_contactosLayout);
+        jd_contactosLayout.setHorizontalGroup(
+            jd_contactosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jd_contactosLayout.createSequentialGroup()
+                .addGroup(jd_contactosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jd_contactosLayout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jd_contactosLayout.createSequentialGroup()
+                        .addGap(193, 193, 193)
+                        .addComponent(jLabel38)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jd_tareasLayout.setVerticalGroup(
-            jd_tareasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jd_tareasLayout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addGroup(jd_tareasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jd_tareasLayout.createSequentialGroup()
-                        .addComponent(jLabel31)
-                        .addGap(18, 18, 18)
-                        .addGroup(jd_tareasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jd_tareasLayout.createSequentialGroup()
-                                .addGap(4, 4, 4)
-                                .addComponent(jLabel32))
-                            .addComponent(tf_asuntoT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(27, 27, 27)
-                        .addGroup(jd_tareasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel34)
-                            .addComponent(jLabel33))))
-                .addGap(3, 3, 3))
+        jd_contactosLayout.setVerticalGroup(
+            jd_contactosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jd_contactosLayout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addComponent(jLabel38)
+                .addGap(32, 32, 32)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jl_hora.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jl_hora.setText("00:00:00");
+        getContentPane().add(jl_hora, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 30, -1, -1));
 
         jDesktopPane1.setBackground(new java.awt.Color(153, 153, 153));
         jDesktopPane1.setPreferredSize(new java.awt.Dimension(179, 500));
@@ -650,24 +686,6 @@ public class Main extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Contactos");
 
-        bt_favoritos.setBackground(new java.awt.Color(0, 189, 253));
-        bt_favoritos.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
-        bt_favoritos.setForeground(new java.awt.Color(51, 51, 51));
-        bt_favoritos.setText("Favoritos");
-        bt_favoritos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                bt_favoritosMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                bt_favoritosMouseExited(evt);
-            }
-        });
-        bt_favoritos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_favoritosActionPerformed(evt);
-            }
-        });
-
         bt_todos.setBackground(new java.awt.Color(0, 189, 253));
         bt_todos.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
         bt_todos.setForeground(new java.awt.Color(51, 51, 51));
@@ -748,27 +766,6 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        bt_drive.setBackground(new java.awt.Color(0, 189, 253));
-        bt_drive.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
-        bt_drive.setForeground(new java.awt.Color(51, 51, 51));
-        bt_drive.setText("Drive");
-        bt_drive.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                bt_driveMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                bt_driveMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                bt_driveMouseExited(evt);
-            }
-        });
-        bt_drive.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_driveActionPerformed(evt);
-            }
-        });
-
         jDesktopPane1.setLayer(bt_redactar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(bt_entrada, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(bt_salida, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -777,7 +774,6 @@ public class Main extends javax.swing.JFrame {
         jDesktopPane1.setLayer(bt_spam, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jSeparator2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(bt_favoritos, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(bt_todos, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jSeparator3, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jSeparator4, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -786,7 +782,6 @@ public class Main extends javax.swing.JFrame {
         jDesktopPane1.setLayer(bt_chats, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(bt_tareas, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(bt_reuniones, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(bt_drive, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -816,12 +811,10 @@ public class Main extends javax.swing.JFrame {
                             .addComponent(bt_eliminados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(bt_borradores, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(bt_spam, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(bt_favoritos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(bt_todos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(bt_chats, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(bt_tareas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(bt_reuniones, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(bt_drive, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(bt_reuniones, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jDesktopPane1Layout.setVerticalGroup(
@@ -847,11 +840,9 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(bt_favoritos)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(27, 27, 27)
                 .addComponent(bt_todos)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(33, 33, 33)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -861,26 +852,10 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(bt_tareas)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bt_reuniones)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bt_drive)
-                .addContainerGap(145, Short.MAX_VALUE))
+                .addContainerGap(181, Short.MAX_VALUE))
         );
 
         getContentPane().add(jDesktopPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 35, -1, 700));
-
-        bt_settings.setBackground(new java.awt.Color(0, 189, 253));
-        bt_settings.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
-        bt_settings.setForeground(new java.awt.Color(51, 51, 51));
-        bt_settings.setText("Settings");
-        bt_settings.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                bt_settingsMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                bt_settingsMouseExited(evt);
-            }
-        });
-        getContentPane().add(bt_settings, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 10, 120, -1));
 
         jPanel1.setBackground(new java.awt.Color(0, 153, 255));
 
@@ -959,20 +934,6 @@ public class Main extends javax.swing.JFrame {
 
         jMenu2.setText("My Account");
 
-        mi_editAcc.setText("Editar Cuenta");
-        mi_editAcc.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mi_editAccActionPerformed(evt);
-            }
-        });
-        jMenu2.add(mi_editAcc);
-
-        mi_showAcc.setText("Ver Cuenta");
-        jMenu2.add(mi_showAcc);
-
-        mi_deleteAcc.setText("Eliminar Cuenta");
-        jMenu2.add(mi_deleteAcc);
-
         mi_logout.setText("Log Out");
         mi_logout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -990,9 +951,6 @@ public class Main extends javax.swing.JFrame {
         jMenu2.add(mi_registro);
 
         jMenuBar1.add(jMenu2);
-
-        jMenu1.setText("File");
-        jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
 
@@ -1014,25 +972,19 @@ public class Main extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_bt_todosActionPerformed
 
-    private void bt_favoritosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_favoritosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_bt_favoritosActionPerformed
-
-    private void bt_chatsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_chatsActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_bt_chatsActionPerformed
-
     private void bt_tareasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_tareasActionPerformed
         // TODO add your handling code here:
+        
+        jd_tareas.setModal(true); //no poder tocar a principal
+        jd_tareas.pack();//tamaño se acople a los controles preestablecidos
+        jd_tareas.setLocationRelativeTo(this);//centro de la principal
+        jd_tareas.setVisible(true);
+        
     }//GEN-LAST:event_bt_tareasActionPerformed
 
     private void bt_reunionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_reunionesActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_bt_reunionesActionPerformed
-
-    private void bt_driveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_driveActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_bt_driveActionPerformed
 
     private void bt_entradaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_entradaMouseEntered
         bt_entrada.setBackground(java.awt.Color.LIGHT_GRAY);
@@ -1078,17 +1030,6 @@ public class Main extends javax.swing.JFrame {
         bt_spam.setForeground(java.awt.Color.black);
     }//GEN-LAST:event_bt_spamMouseExited
 
-    private void bt_favoritosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_favoritosMouseEntered
-        bt_favoritos.setBackground(java.awt.Color.LIGHT_GRAY);
-        bt_favoritos.setForeground(java.awt.Color.white);
-    }//GEN-LAST:event_bt_favoritosMouseEntered
-
-    private void bt_favoritosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_favoritosMouseExited
-        java.awt.Color r = bt_borradores.getBackground();
-        bt_favoritos.setBackground(r);
-        bt_favoritos.setForeground(java.awt.Color.black);
-    }//GEN-LAST:event_bt_favoritosMouseExited
-
     private void bt_todosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_todosMouseEntered
         bt_todos.setBackground(java.awt.Color.LIGHT_GRAY);
         bt_todos.setForeground(java.awt.Color.white);
@@ -1099,17 +1040,6 @@ public class Main extends javax.swing.JFrame {
         bt_todos.setBackground(r);
         bt_todos.setForeground(java.awt.Color.black);
     }//GEN-LAST:event_bt_todosMouseExited
-
-    private void bt_chatsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_chatsMouseEntered
-        bt_chats.setBackground(java.awt.Color.LIGHT_GRAY);
-        bt_chats.setForeground(java.awt.Color.white);
-    }//GEN-LAST:event_bt_chatsMouseEntered
-
-    private void bt_chatsMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_chatsMouseExited
-        java.awt.Color r = bt_borradores.getBackground();
-        bt_chats.setBackground(r);
-        bt_chats.setForeground(java.awt.Color.black);
-    }//GEN-LAST:event_bt_chatsMouseExited
 
     private void bt_tareasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_tareasMouseEntered
         bt_tareas.setBackground(java.awt.Color.LIGHT_GRAY);
@@ -1132,29 +1062,6 @@ public class Main extends javax.swing.JFrame {
         bt_reuniones.setBackground(r);
         bt_reuniones.setForeground(java.awt.Color.black);
     }//GEN-LAST:event_bt_reunionesMouseExited
-
-    private void bt_driveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_driveMouseClicked
-        
-    }//GEN-LAST:event_bt_driveMouseClicked
-
-    private void bt_driveMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_driveMouseEntered
-        bt_drive.setBackground(java.awt.Color.LIGHT_GRAY);
-        bt_drive.setForeground(java.awt.Color.white);
-    }//GEN-LAST:event_bt_driveMouseEntered
-
-    private void bt_driveMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_driveMouseExited
-        java.awt.Color r = bt_borradores.getBackground();
-        bt_drive.setBackground(r);
-        bt_drive.setForeground(java.awt.Color.black);
-    }//GEN-LAST:event_bt_driveMouseExited
-
-    private void bt_settingsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_settingsMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_bt_settingsMouseEntered
-
-    private void bt_settingsMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_settingsMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_bt_settingsMouseExited
 
     private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
         
@@ -1422,27 +1329,30 @@ public class Main extends javax.swing.JFrame {
     private void mi_registroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_registroActionPerformed
         //agregar otra cuenta cuando ya está logged in
         
-        BdD db = new BdD("./CuentasProyecto.accdb");
+        jd_registro.setModal(true); //no poder tocar a principal
+        jd_registro.pack();//tamaño se acople a los controles preestablecidos
+        jd_registro.setLocationRelativeTo(this);//centro de la principal
+        jd_registro.setVisible(true);
+        
+        /*BdD db = new BdD("./CuentasProyecto.accdb");
         db.conectar();
         try {
             String nom, ap, usuario, pass;
             int edad;
-            Date creacion;
             nom = tf_nombreRe.getText();
             ap = tf_apellidoRe.getText();
             usuario = tf_userRe.getText()+"@minigmail.edu";
             pass = pf_passwordRe.getText();
             edad = (int) sp_edadRe.getValue();
-            creacion = new Date();
             db.query.execute("INSERT INTO Cuentas"
-                    + " (Nombre,Apellido,Usuario,Password,Edad,Creacion)"
-                    + " VALUES ('" + nom + "', '" + ap + "','" + usuario + "','" + pass + "','" + edad + "','" + creacion + "'  )");
+                    + " (Nombre,Apellido,Usuario,Password,Edad)"
+                    + " VALUES ('" + nom + "', '" + ap + "','" + usuario + "','" + pass + "','" + edad + "')");
             db.commit();
             JOptionPane.showMessageDialog(jd_registro, "Cuenta creada exitosamente");
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        db.desconectar();
+        db.desconectar();*/
         
         tf_nombreRe.setText("");
         tf_apellidoRe.setText("");
@@ -1548,18 +1458,20 @@ public class Main extends javax.swing.JFrame {
         
         borrarTabla();
         
+        borrarTabla();
+        
+        DefaultTableModel mod = (DefaultTableModel) jt_main.getModel();
+        BinarioCorreo bt = new BinarioCorreo("./"+client.getNombre()+"_"+client.getApellido()+".spam");
+        bt.cargarArchivo();
+        for (int i = 0; i < bt.getListaCorreos().size(); i++) {
+            Correo t = bt.getListaCorreos().get(i);
+            Object[]newrow = {t.getEmisor().getUser(),t.getReceptores(),t.getAsunto(),t.getMensaje()};
+            mod.addRow(newrow);
+        }
+        jt_main.setModel(mod);
+        
         
     }//GEN-LAST:event_bt_spamActionPerformed
-
-    private void mi_editAccActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_editAccActionPerformed
-        //menu item para editar la cuenta
-        
-        jd_editAcc.setModal(true); //no poder tocar a principal
-        jd_editAcc.pack();//tamaño se acople a los controles preestablecidos
-        jd_editAcc.setLocationRelativeTo(this);//centro de la principal
-        jd_editAcc.setVisible(true);
-        
-    }//GEN-LAST:event_mi_editAccActionPerformed
 
     private void bt_saveborradorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_saveborradorMouseClicked
         //boton para guardar en la bandeja de borradores
@@ -1662,6 +1574,25 @@ public class Main extends javax.swing.JFrame {
         
     }//GEN-LAST:event_bt_spamTBActionPerformed
 
+    private void bt_programarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_programarActionPerformed
+        
+    }//GEN-LAST:event_bt_programarActionPerformed
+
+    private void bt_chatsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_chatsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bt_chatsActionPerformed
+
+    private void bt_chatsMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_chatsMouseExited
+        java.awt.Color r = bt_borradores.getBackground();
+        bt_chats.setBackground(r);
+        bt_chats.setForeground(java.awt.Color.black);
+    }//GEN-LAST:event_bt_chatsMouseExited
+
+    private void bt_chatsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_chatsMouseEntered
+        bt_chats.setBackground(java.awt.Color.LIGHT_GRAY);
+        bt_chats.setForeground(java.awt.Color.white);
+    }//GEN-LAST:event_bt_chatsMouseEntered
+
     /**
      * @param args the command line arguments
      */
@@ -1710,21 +1641,19 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton bt_borradores;
     private javax.swing.JButton bt_chats;
     private javax.swing.JButton bt_deleteTB;
-    private javax.swing.JButton bt_drive;
     private javax.swing.JButton bt_editAcc;
     private javax.swing.JButton bt_eliminados;
     private javax.swing.JButton bt_entrada;
-    private javax.swing.JButton bt_favoritos;
     private javax.swing.JButton bt_highlight;
     private javax.swing.JButton bt_italic;
     private javax.swing.JButton bt_login;
+    private javax.swing.JButton bt_programar;
     private javax.swing.JButton bt_redactar;
     private javax.swing.JButton bt_registrar;
     private javax.swing.JButton bt_reuniones;
     private javax.swing.JButton bt_salida;
     private javax.swing.JButton bt_saveborrador;
     private javax.swing.JButton bt_send;
-    private javax.swing.JButton bt_settings;
     private javax.swing.JButton bt_spam;
     private javax.swing.JButton bt_spamTB;
     private javax.swing.JButton bt_tareas;
@@ -1733,8 +1662,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton bt_underline;
     private javax.swing.JComboBox<String> cb_font;
     private javax.swing.JComboBox<String> cb_fontsize;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -1764,6 +1691,10 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1772,11 +1703,11 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelLogo;
     private javax.swing.JLabel jLabelLogo1;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator2;
@@ -1784,26 +1715,31 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JToolBar jToolBar2;
+    private javax.swing.JDialog jd_contactos;
     private javax.swing.JDialog jd_editAcc;
     private javax.swing.JDialog jd_login;
     private javax.swing.JDialog jd_redactar;
     private javax.swing.JDialog jd_registro;
     private javax.swing.JDialog jd_tareas;
+    private com.toedter.calendar.JDateChooser jdc_final;
+    private com.toedter.calendar.JDateChooser jdc_inicio;
+    private javax.swing.JLabel jl_hora;
     private javax.swing.JTable jt_main;
-    private javax.swing.JMenuItem mi_deleteAcc;
-    private javax.swing.JMenuItem mi_editAcc;
     private javax.swing.JMenuItem mi_logout;
     private javax.swing.JMenuItem mi_registro;
-    private javax.swing.JMenuItem mi_showAcc;
     private javax.swing.JPasswordField pf_passli;
     private javax.swing.JPasswordField pf_passwordR;
     private javax.swing.JPasswordField pf_passwordRe;
     private javax.swing.JSpinner sp_edadR;
     private javax.swing.JSpinner sp_edadRe;
+    private javax.swing.JSpinner sp_hora;
+    private javax.swing.JSpinner sp_min;
+    private javax.swing.JTextArea ta_contactos;
     private javax.swing.JTextField tf_apellidoR;
     private javax.swing.JTextField tf_apellidoRe;
     private javax.swing.JTextField tf_asunto;
     private javax.swing.JTextField tf_asuntoT;
+    private javax.swing.JTextField tf_mensajeT;
     private javax.swing.JTextField tf_nombreR;
     private javax.swing.JTextField tf_nombreRe;
     private javax.swing.JTextField tf_para;
